@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './app.css';
 import Navbar from './components/navbar/Navbar.jsx';
 import Card from './components/card/Card';
+import {posts} from './data';
 
 const App = () => {
 
@@ -14,7 +15,9 @@ const App = () => {
             {user ? (
                 <>
                     <Navbar />
-                    <Card />
+                    {posts.map((post) => (
+                        <Card key={post.id} post={post}/>
+                    ))}
                     <span className='userName'>{user}</span>
                 </>
             ) : (
