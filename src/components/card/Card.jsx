@@ -8,6 +8,8 @@ import { useState } from "react";
 
 
 const Card = ({post}) => {
+
+    const [liked, setLiked] = useState(false);
     return (
         <div className='card'>
             <div className='info'>
@@ -16,10 +18,14 @@ const Card = ({post}) => {
             </div>
             <img className='postImg' src={post.postImg} alt='postImg' />
             <div className='interaction'>
-                <img src={Heart} alt='interaction' className='cardIcon' />
+                {liked ? (
+                    <img src={HeartFilled} alt='interaction' className='cardIcon' onClick={() => setLiked(false)}/>
+                ) : (
+                    <img src={Heart} alt='interaction' className='cardIcon' onClick={() => setLiked(true)} />
+                )}
                 <img src={Comment} alt='interaction' className='cardIcon' />
                 <img src={Share} alt='interaction' className='cardIcon' />
-                <img src={Info} alt='interaction' className='cardIcon' />
+                <img src={Info} alt='interaction' className='cardIcon infoIcon' />
             </div>
         </div>
     );
