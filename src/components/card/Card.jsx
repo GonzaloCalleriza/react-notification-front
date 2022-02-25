@@ -7,9 +7,20 @@ import Info from "../../img/info.svg";
 import { useState } from "react";
 
 
-const Card = ({post}) => {
+const Card = ({post, socket, user }) => {
 
     const [liked, setLiked] = useState(false);
+
+    const handleNotification = (type) => {
+        setLiked(true);
+        socket.emit('sendNotification', {
+            senderName: user,
+            receiverName: post.username,
+            type: type,
+
+        })
+    }
+
     return (
         <div className='card'>
             <div className='info'>
@@ -21,11 +32,11 @@ const Card = ({post}) => {
                 {liked ? (
                     <img src={HeartFilled} alt='interaction' className='cardIcon' onClick={() => setLiked(false)}/>
                 ) : (
-                    <img src={Heart} alt='interaction' className='cardIcon' onClick={() => setLiked(true)} />
+                    <img src={Heart} alt='interaction' className='cardIcon' onClick={() => handleNotification(1)} />
                 )}
-                <img src={Comment} alt='interaction' className='cardIcon' />
-                <img src={Share} alt='interaction' className='cardIcon' />
-                <img src={Info} alt='interaction' className='cardIcon infoIcon' />
+                <img src={Comment} alt='interaction' className='cardIcon' onClick={() => handleNotification(2)}/>
+                <img src={Share} alt='interaction' className='cardIcon' onClick={() => handleNotification(3)}/>
+                <img src={Info} alt='interaction' className='cardIcon infoIcon' onClick={() => handleNotification(4)}/>
             </div>
         </div>
     );
